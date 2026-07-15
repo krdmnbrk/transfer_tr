@@ -1,0 +1,19 @@
+import type { NextConfig } from "next";
+
+// GitHub Pages: statik dışa aktarım + proje deposu alt yolu (/transfer_tr).
+// Yerel geliştirmede (npm run dev) basePath boş kalır.
+const repo = "transfer_tr";
+const isProd = process.env.NODE_ENV === "production";
+
+const nextConfig: NextConfig = {
+  output: "export",
+  basePath: isProd ? `/${repo}` : "",
+  assetPrefix: isProd ? `/${repo}/` : "",
+  images: { unoptimized: true },
+  trailingSlash: true,
+  // public/ altındaki statik dosyalara istemci tarafında basePath ile
+  // erişebilmek için (next/image dışı <img> otomatik prefix almaz).
+  env: { NEXT_PUBLIC_BASE_PATH: isProd ? `/${repo}` : "" },
+};
+
+export default nextConfig;

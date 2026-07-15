@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+/* ============================================================
+   Tasarım jetonları — "Çim Işıkları" teması
+   Koyu yeşil-siyah zemin · çim yeşili marka · son dakika kırmızısı
+   ============================================================ */
+@theme {
+  /* Marka renkleri */
+  --color-brand: #22c55e; /* çim yeşili — ana aksiyon/marka */
+  --color-brand-strong: #16a34a; /* koyu yeşil — hover/vurgu */
+  --color-brand-soft: #4ade80; /* açık yeşil — metin/ikon */
+  --color-accent: #ef4444; /* son dakika kırmızısı — ikincil vurgu */
+  --color-accent-soft: #f87171; /* açık kırmızı */
+
+  /* Yüzeyler */
+  --color-base: #0a1210; /* sayfa zemini */
+  --color-surface: #101b17; /* kart zemini (opak alternatif) */
+  --color-surface-2: #16241f; /* yükseltilmiş yüzey */
+  --color-hairline: rgba(255, 255, 255, 0.08); /* ince çizgi */
+
+  /* Tipografi */
+  --font-sans: var(--font-grotesk), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  /* Yükseklik (gölge) ölçeği */
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --shadow-pop: 0 12px 40px -12px rgba(0, 0, 0, 0.7);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Klavye odağı görünürlüğü (WCAG 2.4.7). :focus-visible yalnızca klavye/
+   programatik odakta tetiklenir → fare/dokunma tıklamasında halka görünmez. */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+body {
+  background:
+    radial-gradient(900px 500px at 8% -180px, rgba(34, 197, 94, 0.1) 0%, transparent 55%),
+    radial-gradient(900px 500px at 95% -120px, rgba(239, 68, 68, 0.09) 0%, transparent 55%),
+    #0a1210;
+  background-attachment: fixed;
+  color: #edf5f0;
+  font-family: var(--font-grotesk, system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+}
+
+/* Sayısal değerler için sekme hizalı (tabular) rakamlar — saat/sayaç
+   sütunlarında düzen kaymasını önler. */
+.tabular,
+.font-mono {
+  font-variant-numeric: tabular-nums;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #1d2b25;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2c4237;
+}
+
+/* Yatay kaydırma şeritleri için momentum + temiz kaydırma */
+.x-scroll {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.x-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Liste girişlerinin kademeli (stagger) belirmesi */
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise-in {
+  animation: riseIn 0.32s ease-out both;
+}
+
+/* Hareket azaltma tercihi — erişilebilirlik (WCAG 2.3.3) + pil */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .rise-in {
+    animation: none;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
