@@ -3,10 +3,12 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [master, main]
-  # Transfer haberleri için 30 dakikalık tazeleme yeterli; her çalışma
-  # Google News RSS'i derleme sırasında yeniden çeker ve siteyi yayınlar.
+  # Olabildiğince taze veri: 5 dakikada bir (GitHub'ın izin verdiği en sık
+  # aralık) yeniden derle. Her çalışma Google News RSS'i derleme sırasında
+  # yeniden çeker ve siteyi yayınlar. Not: GitHub zamanlanmış çalıştırmaları
+  # yoğunlukta birkaç dakika geciktirebilir.
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:

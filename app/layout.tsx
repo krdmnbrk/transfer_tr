@@ -3,6 +3,9 @@ import { Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { LastUpdated } from "@/components/LastUpdated";
+import { Container } from "@/components/ui";
+import { getTransferFeed } from "@/lib/data";
 import { SITE } from "@/lib/i18n";
 
 const grotesk = Space_Grotesk({
@@ -72,11 +75,14 @@ export const viewport: Viewport = {
   themeColor: "#0a1210",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Tazelik şeridi tüm sayfaların en üstünde aynı damgayı gösterir;
+  // veri derleme anında çekildiği için layout'ta okumak ek maliyet getirmez.
+  const { data: feed } = await getTransferFeed();
   return (
     <html
       lang="tr"
@@ -84,6 +90,11 @@ export default function RootLayout({
     >
       <body className="flex min-h-screen flex-col">
         <Nav />
+        <div className="border-b border-white/[0.06] bg-white/[0.02]">
+          <Container className="flex justify-center py-1.5 sm:justify-start">
+            <LastUpdated iso={feed.fetchedAt} />
+          </Container>
+        </div>
         <main className="flex-1">{children}</main>
         <Footer />
       </body>

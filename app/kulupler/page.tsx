@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTransferFeed, CLUBS } from "@/lib/data";
 import { Container, SectionTitle, StaleBanner } from "@/components/ui";
-import { LastUpdated } from "@/components/LastUpdated";
 import { ClubCard } from "@/components/ClubCard";
 
 export const metadata: Metadata = {
@@ -21,9 +20,6 @@ export default async function ClubsPage() {
           title="Kulüpler"
           subtitle="Transfer gündemini kulüp kulüp inceleyin"
         />
-        <div className="mb-6">
-          <LastUpdated iso={feed.fetchedAt} />
-        </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {CLUBS.map((club) => (
             <ClubCard

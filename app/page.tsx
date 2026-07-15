@@ -1,7 +1,6 @@
 import { getTransferFeed, CLUBS } from "@/lib/data";
 import { SITE } from "@/lib/i18n";
 import { Container, Pill, StaleBanner } from "@/components/ui";
-import { LastUpdated } from "@/components/LastUpdated";
 import { NewsFeed } from "@/components/NewsFeed";
 
 export default async function HomePage() {
@@ -26,9 +25,6 @@ export default async function HomePage() {
             <Pill tone="emerald">{imzaCount} imza/resmi</Pill>
             <Pill tone="amber">{gorusmeCount} görüşme/anlaşma</Pill>
             <Pill tone="slate">{CLUBS.length} kulüp</Pill>
-          </div>
-          <div className="mt-3">
-            <LastUpdated iso={feed.fetchedAt} />
           </div>
           {feed.failedClubIds.length > 0 && (
             <p className="mt-2 text-xs text-amber-400/80">

@@ -4,7 +4,6 @@ import type { NewsItem, TransferStage } from "@/lib/domain/types";
 import { STAGE_PRECEDENCE } from "@/lib/transfer/classify";
 import { stageDescription, stageLabel } from "@/lib/i18n";
 import { Container, EmptyState, SectionTitle, StaleBanner } from "@/components/ui";
-import { LastUpdated } from "@/components/LastUpdated";
 import { NewsCard } from "@/components/NewsCard";
 
 export const metadata: Metadata = {
@@ -30,14 +29,10 @@ export default async function StagesPage() {
           title="Aşamalar"
           subtitle="Ligin tüm transfer gündemi kesinlik sırasıyla"
         />
-        <div className="mb-6">
-          <LastUpdated iso={feed.fetchedAt} />
-        </div>
-
         {byStage.size === 0 ? (
           <EmptyState
             title="Şu an gösterilecek haber yok"
-            hint="Kaynak ~30 dakikada bir yenilenir; daha sonra tekrar bakın."
+            hint="Kaynak ~5 dakikada bir yenilenir; daha sonra tekrar bakın."
           />
         ) : (
           [...byStage.entries()].map(([stage, items]) => (
